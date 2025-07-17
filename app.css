@@ -1,0 +1,298 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #fce4ec;
+    font-family: Vazirmatn,'Tahoma', sans-serif;
+    overflow: hidden; 
+    margin: 0;
+    direction: rtl;
+}
+
+.confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.confetti {
+    position: absolute;
+    top: -30px; 
+    animation-name: fallAndTwirl;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fallAndTwirl {
+    0% {
+        transform: translateY(-5vh) translateX(0px) rotateZ(0deg) rotateX(0deg);
+        opacity: inherit; 
+    }
+    25% {
+        transform: translateY(25vh) translateX(20px) rotateX(90deg) rotateZ(45deg); 
+    }
+    50% {
+        transform: translateY(50vh) translateX(-20px) rotateX(180deg) rotateZ(90deg); 
+    }
+    75% {
+        transform: translateY(75vh) translateX(10px) rotateX(270deg) rotateZ(135deg);
+    }
+    100% {
+        transform: translateY(105vh) translateX(0px) rotateZ(720deg) rotateX(360deg); 
+        opacity: 0 !important;
+    }
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+    position: relative; 
+    z-index: 1;      
+}
+
+.cake-container {
+    perspective: 1000px;
+}
+
+.cake {
+    position: relative;
+    width: 200px;
+    height: 220px; 
+    margin: 0 auto;
+    transform-style: preserve-3d;
+    animation: appear 1s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes appear {
+    to {
+        opacity: 1;
+    }
+}
+
+.layer {
+    position: absolute;
+    width: 100%;
+    border-radius: 50% / 20%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    animation: layerAppear 0.8s ease-out forwards;
+}
+
+.layer-bottom {
+    height: 80px; 
+    background-color: #6a0dad; 
+    bottom: 0;
+    animation-delay: 0.5s;
+}
+
+.layer-middle {
+    height: 70px; 
+    background-color: #c8a2c8; 
+    bottom: 60px; 
+    width: 90%;
+    left: 5%;
+    animation-delay: 1.3s;
+}
+
+.layer-top {
+    height: 60px;
+    background-color: #ffb6c1;
+    bottom: 110px;
+    width: 80%;
+    left: 10%;
+    animation-delay: 2.1s;
+}
+
+@keyframes layerAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.icing {
+    position: absolute;
+    width: 82%;
+    height: 40px; 
+    background-color: #f8f0ff;
+    border-radius: 50% / 25%;
+    bottom: 145px;
+    left: 9%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    animation: layerAppear 0.8s ease-out 2.9s forwards;
+}
+
+.icing::before { 
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 25px;
+    background-color: #f8f0ff;
+    border-radius: 0 0 50% 50%;
+    top: 30px;
+    left: 18%;
+    box-shadow: 50px 0 0 #f8f0ff, -30px -5px 0 #f8f0ff; 
+}
+
+
+.candle-container {
+    position: absolute;
+    bottom: 175px; 
+    left: 47%;
+    transform: translateX(-50%);
+    opacity: 0;
+    animation: layerAppear 0.8s ease-out 3.7s forwards;
+}
+
+.candle {
+    width: 12px;
+    height: 50px;
+    background-color: #ffdead; 
+    position: relative;
+    border-radius: 5px 5px 0 0;
+    margin: 0 auto;
+    box-shadow: inset -2px -2px 0px rgba(0,0,0,0.1);
+}
+
+
+.flame { 
+    position: absolute;
+    width: 14px;
+    height: 28px;
+    background-color: #ff6347; 
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    top: -26px; /* Adjusted for new height */
+    left: -1px; /* Centered on 12px candle */
+    animation: flameDanceOuter 0.7s infinite alternate;
+    transform-origin: bottom;
+    box-shadow: 0 0 12px 4px rgba(255, 120, 0, 0.6), 
+                0 0 20px 8px rgba(255, 165, 0, 0.4); 
+}
+
+.flame-inner { 
+    position: absolute;
+    width: 6px;
+    height: 15px;
+    background-color: #fffacd; 
+    border-radius: 45% 45% 40% 40% / 70% 70% 30% 30%; 
+    bottom: 3px; 
+    left: 50%;
+    transform: translateX(-50%);
+    animation: flameDanceInner 0.5s infinite alternate; 
+    transform-origin: bottom;
+}
+
+.flame.out {
+    animation: flameOut 0.3s forwards;
+}
+
+@keyframes flameDanceOuter {
+    0% { transform: scale(1, 1) skewX(0deg); background-color: #ff6347; }
+    50% { transform: scale(0.95, 1.05) skewX(3deg) skewY(-2deg); background-color: #ff7f50; }
+    100% { transform: scale(1.05, 0.95) skewX(-3deg) skewY(2deg); background-color: #ff8243; }
+}
+
+@keyframes flameDanceInner {
+    0% { transform: scale(1, 1) skewY(-3deg) translateX(-50%); background-color: #fffacd; }
+    50% { transform: scale(0.9, 1.1) skewY(3deg) translateX(-50%); background-color: #ffeb3b; }
+    100% { transform: scale(1.1, 0.9) skewY(-3deg) translateX(-50%); background-color: #fff59d; }
+}
+
+@keyframes flameOut {
+    0% {
+        opacity: 1;
+        transform: scaleY(1) translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: scaleY(0) translateY(20px);
+    }
+}
+
+.happy-birthday {
+    font-size: 2.5em;
+    color: #d81b60; /* Strong Pink - Changed */
+    margin: 30px 0 20px 0; /* Increased margin */
+    opacity: 0;
+    animation: textAppear 1s ease-out 4.5s forwards; /* */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+@keyframes textAppear {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.countdown {
+    font-size: 1.3em; 
+    color: #4b0082; 
+    opacity: 0;
+    animation: textAppear 1s ease-out 4.7s forwards; 
+    background-color: #e6e6fa; 
+    padding: 8px 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: inline-block; 
+    font-weight: bold;
+}
+
+
+@media (max-width: 600px) {
+    .cake {
+        width: 150px;
+        height: 190px;
+    }
+
+    .layer-bottom { height: 70px; }
+    .layer-middle { height: 60px; bottom: 50px; }
+    .layer-top { height: 50px; bottom: 90px; }
+    .icing { bottom: 120px; height: 35px; }
+    .icing::before { top: 26px; left: 25%;} 
+    .candle-container { bottom: 145px; } 
+    .candle { height: 40px; }
+
+    .flame {
+        height: 24px; 
+        width: 12px;
+        top: -22px;
+        left: 0;
+    }
+    .flame-inner {
+        height: 12px;
+        width: 5px;
+        bottom: 2px;
+    }
+
+    .happy-birthday {
+        font-size: 2em;
+    }
+
+    .countdown {
+        font-size: 1em;
+        padding: 6px 12px;
+    }
+}
